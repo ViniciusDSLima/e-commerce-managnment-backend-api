@@ -72,7 +72,10 @@ export class OrderRepository implements IOrderRepository {
       where: { id },
       relations: ['items', 'items.product'],
     });
-    return entity ? OrderTypeOrmEntity.toDomain(entity) : null;
+    if (!entity) {
+      return null;
+    }
+    return OrderTypeOrmEntity.toDomain(entity);
   }
 
   async updateStatus(

@@ -49,7 +49,10 @@ export class ProductRepository implements IProductRepository {
 
   async findById(id: string): Promise<Product | null> {
     const entity = await this.repository.findOne({ where: { id } });
-    return entity ? ProductTypeOrmEntity.toDomain(entity) : null;
+    if (!entity) {
+      return null;
+    }
+    return ProductTypeOrmEntity.toDomain(entity);
   }
 
   async findByIdWithLock(id: string): Promise<Product | null> {
@@ -58,7 +61,10 @@ export class ProductRepository implements IProductRepository {
       .setLock('pessimistic_write')
       .where('product.id = :id', { id })
       .getOne();
-    return entity ? ProductTypeOrmEntity.toDomain(entity) : null;
+    if (!entity) {
+      return null;
+    }
+    return ProductTypeOrmEntity.toDomain(entity);
   }
 
   async update(
@@ -83,7 +89,9 @@ export class ProductRepository implements IProductRepository {
   }
 
   async findByIds(ids: string[]): Promise<Product[]> {
-    if (ids.length === 0) return [];
+    if (ids.length === 0) {
+      return [];
+    }
     const entities = await this.repository.findBy({ id: In(ids) });
     return entities.map((entity) => ProductTypeOrmEntity.toDomain(entity));
   }
