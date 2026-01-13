@@ -12,7 +12,7 @@ import { MiddlewareConsumer, NestModule } from '@nestjs/common';
 import { ProductTypeOrmEntity } from './infrastructure/persistence/typeorm/entities/product.typeorm.entity';
 import { OrderTypeOrmEntity } from './infrastructure/persistence/typeorm/entities/order.typeorm.entity';
 import { OrderItemTypeOrmEntity } from './infrastructure/persistence/typeorm/entities/order-item.typeorm.entity';
-import { HealthController } from './common/health/health.controller';
+import { HealthController } from './presentation/controllers/health/health.controller';
 
 @Module({
   imports: [
