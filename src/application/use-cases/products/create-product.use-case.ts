@@ -27,7 +27,7 @@ export class CreateProductUseCase {
     }
 
     const product = new Product(
-      '',
+      undefined,
       dto.name,
       dto.category,
       dto.description || '',
