@@ -8,7 +8,7 @@ export enum OrderStatus {
 
 export class Order {
   constructor(
-    public readonly id: string,
+    public readonly id: string | undefined,
     public readonly items: OrderItem[],
     public readonly total: number,
     public status: OrderStatus,
@@ -16,25 +16,23 @@ export class Order {
     public readonly updatedAt: Date,
   ) {}
 
-  static create(items: OrderItem[]): Order {
-    const total = items.reduce((sum, item) => sum + item.subtotal, 0);
+  static create(
+    items: OrderItem[],
+    id?: string,
+    total?: number,
+    status?: OrderStatus,
+  ): Order {
+    const calculatedTotal =
+      total ?? items.reduce((sum, item) => sum + item.subtotal, 0);
+    const orderStatus = status ?? OrderStatus.PENDING;
     return new Order(
-      '',
+      id,
       items,
-      total,
-      OrderStatus.PENDING,
+      calculatedTotal,
+      orderStatus,
       new Date(),
       new Date(),
     );
-  }
-
-  static createWithId(
-    id: string,
-    items: OrderItem[],
-    total: number,
-    status: OrderStatus,
-  ): Order {
-    return new Order(id, items, total, status, new Date(), new Date());
   }
 
   complete(): void {
@@ -45,13 +43,10 @@ export class Order {
   }
 
   cancel(): void {
-    if (this.status === OrderStatus.COMPLETED) {
-      this.status = OrderStatus.CANCELLED;
-    } else if (this.status === OrderStatus.PENDING) {
-      this.status = OrderStatus.CANCELLED;
-    } else {
+    if (this.status === OrderStatus.CANCELLED) {
       throw new Error('Order is already cancelled');
     }
+    this.status = OrderStatus.CANCELLED;
   }
 
   canBeCancelled(): boolean {

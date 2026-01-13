@@ -1,6 +1,6 @@
 export class Product {
   constructor(
-    public readonly id: string,
+    public readonly id: string | undefined,
     public readonly name: string,
     public readonly category: string,
     public readonly description: string,
