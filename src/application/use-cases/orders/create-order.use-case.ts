@@ -69,13 +69,11 @@ export class CreateOrderUseCase {
 
     for (const item of createdOrder.items) {
       const product = products.find((p) => p.id === item.productId);
-      if (product) {
-        product.decreaseStock(item.quantity);
-        await this.productRepository.updateStock(
-          item.productId,
-          -item.quantity,
-        );
+      if (!product) {
+        continue;
       }
+      product.decreaseStock(item.quantity);
+      await this.productRepository.updateStock(item.productId, -item.quantity);
     }
 
     createdOrder.complete();

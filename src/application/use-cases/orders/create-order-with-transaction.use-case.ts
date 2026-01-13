@@ -93,19 +93,20 @@ export class CreateOrderWithTransactionUseCase {
         const productEntity = productEntities.find(
           (p) => p.id === item.productId,
         );
-        if (productEntity) {
-          const newStock = productEntity.stockQuantity - item.quantity;
-          if (newStock < 0) {
-            throw new BadRequestException(
-              `Insufficient stock for product ${productEntity.name}`,
-            );
-          }
-          await manager.update(
-            ProductTypeOrmEntity,
-            { id: item.productId },
-            { stockQuantity: newStock },
+        if (!productEntity) {
+          continue;
+        }
+        const newStock = productEntity.stockQuantity - item.quantity;
+        if (newStock < 0) {
+          throw new BadRequestException(
+            `Insufficient stock for product ${productEntity.name}`,
           );
         }
+        await manager.update(
+          ProductTypeOrmEntity,
+          { id: item.productId },
+          { stockQuantity: newStock },
+        );
       }
 
       await manager.update(
