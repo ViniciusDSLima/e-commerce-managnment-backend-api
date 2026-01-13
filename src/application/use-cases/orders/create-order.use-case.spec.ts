@@ -78,15 +78,15 @@ describe('CreateOrderUseCase', () => {
         id: TEST_UUIDS.ORDER_ITEM_1,
       },
     ];
-    const createdOrder = Order.createWithId(
-      TEST_UUIDS.ORDER_1,
+    const createdOrder = Order.create(
       orderItems as any,
+      TEST_UUIDS.ORDER_1,
       200,
       OrderStatus.PENDING,
     );
-    const completedOrder = Order.createWithId(
-      TEST_UUIDS.ORDER_1,
+    const completedOrder = Order.create(
       orderItems as any,
+      TEST_UUIDS.ORDER_1,
       200,
       OrderStatus.COMPLETED,
     );

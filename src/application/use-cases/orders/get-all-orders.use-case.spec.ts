@@ -40,8 +40,8 @@ describe('GetAllOrdersUseCase', () => {
 
   it('should return all orders', async () => {
     const orders = [
-      Order.createWithId(TEST_UUIDS.ORDER_1, [], 0, OrderStatus.PENDING),
-      Order.createWithId(TEST_UUIDS.ORDER_2, [], 0, OrderStatus.PENDING),
+      Order.create([], TEST_UUIDS.ORDER_1, 0, OrderStatus.PENDING),
+      Order.create([], TEST_UUIDS.ORDER_2, 0, OrderStatus.PENDING),
     ];
 
     repository.findAll.mockResolvedValue({

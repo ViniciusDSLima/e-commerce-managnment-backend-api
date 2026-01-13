@@ -40,12 +40,7 @@ describe('GetOrderByIdUseCase', () => {
   });
 
   it('should return an order when found', async () => {
-    const order = Order.createWithId(
-      TEST_UUIDS.ORDER_1,
-      [],
-      0,
-      OrderStatus.PENDING,
-    );
+    const order = Order.create([], TEST_UUIDS.ORDER_1, 0, OrderStatus.PENDING);
 
     repository.findById.mockResolvedValue(order);
 

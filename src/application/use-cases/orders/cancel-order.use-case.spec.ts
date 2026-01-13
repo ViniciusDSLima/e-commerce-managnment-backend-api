@@ -70,16 +70,16 @@ describe('CancelOrderUseCase', () => {
 
   it('should cancel a pending order successfully', async () => {
     const items = [OrderItem.create(TEST_UUIDS.PRODUCT_1, 2, 100)];
-    const order = Order.createWithId(
-      TEST_UUIDS.ORDER_1,
+    const order = Order.create(
       items,
+      TEST_UUIDS.ORDER_1,
       200,
       OrderStatus.PENDING,
     );
 
-    const cancelledOrder = Order.createWithId(
-      TEST_UUIDS.ORDER_1,
+    const cancelledOrder = Order.create(
       items,
+      TEST_UUIDS.ORDER_1,
       200,
       OrderStatus.CANCELLED,
     );
@@ -103,16 +103,16 @@ describe('CancelOrderUseCase', () => {
 
   it('should cancel a completed order and restore stock', async () => {
     const items = [OrderItem.create(TEST_UUIDS.PRODUCT_1, 2, 100)];
-    const order = Order.createWithId(
-      TEST_UUIDS.ORDER_1,
+    const order = Order.create(
       items,
+      TEST_UUIDS.ORDER_1,
       200,
       OrderStatus.COMPLETED,
     );
 
-    const cancelledOrder = Order.createWithId(
-      TEST_UUIDS.ORDER_1,
+    const cancelledOrder = Order.create(
       items,
+      TEST_UUIDS.ORDER_1,
       200,
       OrderStatus.CANCELLED,
     );
@@ -140,9 +140,9 @@ describe('CancelOrderUseCase', () => {
 
   it('should throw BadRequestException when order is already cancelled', async () => {
     const items = [OrderItem.create(TEST_UUIDS.PRODUCT_1, 2, 100)];
-    const order = Order.createWithId(
-      TEST_UUIDS.ORDER_1,
+    const order = Order.create(
       items,
+      TEST_UUIDS.ORDER_1,
       200,
       OrderStatus.CANCELLED,
     );
