@@ -48,13 +48,6 @@ export class OrderTypeOrmEntity {
     const items = entity.items
       ? entity.items.map((item) => OrderItemTypeOrmEntity.toDomain(item))
       : [];
-    return new Order(
-      entity.id,
-      items,
-      Number(entity.total),
-      entity.status,
-      entity.createdAt,
-      entity.updatedAt,
-    );
+    return Order.create(items, entity.id, Number(entity.total), entity.status);
   }
 }
