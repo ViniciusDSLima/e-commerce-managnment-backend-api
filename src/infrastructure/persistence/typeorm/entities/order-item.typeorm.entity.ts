@@ -45,9 +45,10 @@ export class OrderItemTypeOrmEntity {
       Number(entity.unitPrice),
       Number(entity.subtotal),
     );
-    if (entity.product) {
-      orderItem.product = ProductTypeOrmEntity.toDomain(entity.product);
+    if (!entity.product) {
+      return orderItem;
     }
+    orderItem.product = ProductTypeOrmEntity.toDomain(entity.product);
     return orderItem;
   }
 }
