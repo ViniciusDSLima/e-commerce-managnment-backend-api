@@ -34,20 +34,9 @@ export class UpdateProductUseCase {
       throw new BadRequestException('Stock quantity cannot be negative');
     }
 
-    const updateData: {
-      name?: string;
-      category?: string;
-      description?: string;
-      price?: number;
-      stockQuantity?: number;
-    } = {};
-
-    if (dto.name !== undefined) updateData.name = dto.name;
-    if (dto.category !== undefined) updateData.category = dto.category;
-    if (dto.description !== undefined) updateData.description = dto.description;
-    if (dto.price !== undefined) updateData.price = dto.price;
-    if (dto.stockQuantity !== undefined)
-      updateData.stockQuantity = dto.stockQuantity;
+    const updateData = Object.fromEntries(
+      Object.entries(dto).filter(([, value]) => value !== undefined),
+    ) as Partial<Product>;
 
     return await this.productRepository.update(
       id,
