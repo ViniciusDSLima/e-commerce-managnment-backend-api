@@ -58,7 +58,9 @@ export class ProductTypeOrmEntity {
 
   static toPersistence(product: Product): ProductTypeOrmEntity {
     const entity = new ProductTypeOrmEntity();
-    if (product.id) entity.id = product.id;
+    if (product.id) {
+      entity.id = product.id;
+    }
     entity.name = product.name;
     entity.category = product.category;
     entity.description = product.description;
