@@ -31,11 +31,15 @@ export class GlobalExceptionFilter implements ExceptionFilter {
 
       if (typeof exceptionResponse === 'string') {
         message = exceptionResponse;
-      } else if (typeof exceptionResponse === 'object') {
+      }
+
+      if (typeof exceptionResponse === 'object') {
         message = (exceptionResponse as any).message || exception.message;
         error = (exceptionResponse as any).error || error;
       }
-    } else if (exception instanceof Error) {
+    }
+
+    if (exception instanceof Error && !(exception instanceof HttpException)) {
       message = exception.message;
       this.logger.error(
         `Unhandled exception: ${exception.message}`,
