@@ -1,0 +1,12 @@
+import { v4 as uuidv4 } from 'uuid';
+
+export const generateUUID = (): string => uuidv4();
+
+export const TEST_UUIDS = {
+  PRODUCT_1: '550e8400-e29b-41d4-a716-446655440000',
+  PRODUCT_2: '550e8400-e29b-41d4-a716-446655440001',
+  PRODUCT_3: '550e8400-e29b-41d4-a716-446655440002',
+  ORDER_1: '660e8400-e29b-41d4-a716-446655440000',
+  ORDER_2: '660e8400-e29b-41d4-a716-446655440001',
+  ORDER_ITEM_1: '770e8400-e29b-41d4-a716-446655440000',
+};
